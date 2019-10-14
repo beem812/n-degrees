@@ -1,7 +1,7 @@
 import { createServer } from 'http';
 import express from 'express';
 import socket from 'socket.io';
-import { PathDriver } from './pathTraveler';
+import { PathDriver } from './pathDriver';
 import { SpotifyService } from './spotifyService';
 import { searchPayload } from '../shared/socketTypes';
 import { SocketMessages } from '../src/socketMessages';

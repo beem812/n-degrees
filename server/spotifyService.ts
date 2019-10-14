@@ -1,5 +1,11 @@
 import SpotifyWebApi from 'spotify-web-api-node';
 
+interface Response<T> {
+  body: T;
+  headers: Record<string, string>;
+  statusCode: number;
+}
+
 export class SpotifyService {
   private spotifyApi: SpotifyWebApi;
 
@@ -30,6 +36,17 @@ export class SpotifyService {
   async getTracks(trackIds: string[]){
     const {body: { tracks }} = await this.spotifyApi.getTracks(trackIds);
     return tracks;
+  }
+
+  async searchTracksAndGetIds(startingSong: string, targetSong: string){
+    const extractTrackIds = ([startingResponse, targetResponse]: [Response<SpotifyApi.SearchResponse>, Response<SpotifyApi.SearchResponse>]) => {
+      const startingTrackId = startingResponse.body.tracks!.items[0].id;
+      const targetTrackId = targetResponse.body.tracks!.items[0].id;
+      return [startingTrackId, targetTrackId];
+    }
+    
+    return Promise.all([this.searchTrack(startingSong), this.searchTrack(targetSong)])
+      .then(extractTrackIds)
   }
 
   async getRecommendations(trackIds: string[], targetTrackFeatures: SpotifyApi.AudioFeaturesObject){

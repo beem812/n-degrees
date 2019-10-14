@@ -1,11 +1,6 @@
 import { SpotifyService } from './spotifyService';
 import { TrackAndDelta, getNextTrackOnPath } from './compareTracks';
 import AudioFeatures = SpotifyApi.AudioFeaturesObject;
-interface Response<T> {
-  body: T;
-  headers: Record<string, string>;
-  statusCode: number;
-}
 
 export class PathDriver {
   private spotifyApi: SpotifyService;
@@ -17,7 +12,7 @@ export class PathDriver {
     const exploredNodes = new Map<string, number>();
     const recommendedTrackWindow = this.buildRecommendedTrackWindow<TrackAndDelta>();
 
-    const [startingId, targetId] = await this.searchTracksAndGetIds(startingTrack, targetTrack)
+    const [startingId, targetId] = await this.spotifyApi.searchTracksAndGetIds(startingTrack, targetTrack)
       .catch(this.logAndRethrow);
 
     const [targetTrackFeatures] = await this.spotifyApi.getAudioFeatures([targetId])
@@ -67,17 +62,6 @@ export class PathDriver {
 
   private getRecommendationIds({body:{tracks: recommendations}}: {body:{tracks: SpotifyApi.TrackObjectSimplified[]}}){
     return recommendations.map(track => track.id)
-  }
-
-  private async searchTracksAndGetIds(startingSong: string, targetSong: string){
-    const extractTrackIds = ([startingResponse, targetResponse]: [Response<SpotifyApi.SearchResponse>, Response<SpotifyApi.SearchResponse>]) => {
-      const startingTrackId = startingResponse.body.tracks!.items[0].id;
-      const targetTrackId = targetResponse.body.tracks!.items[0].id;
-      return [startingTrackId, targetTrackId];
-    }
-    
-    return Promise.all([this.spotifyApi.searchTrack(startingSong), this.spotifyApi.searchTrack(targetSong)])
-      .then(extractTrackIds)
   }
 
   private buildRecommendedTrackWindow<T>(){
