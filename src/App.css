@@ -1,0 +1,97 @@
+.App {
+  text-align: center;
+  color: #09d3ac;
+}
+
+.App-logo {
+  height: 40vmin;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 30vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  
+}
+
+.App-link {
+  color: #09d3ac;
+}
+
+.App-form-row {
+  padding-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: #282c34;
+  width: 100%;
+}
+
+.App-form-column {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+}
+
+.button.btn-primary {
+  max-width: 150px;
+  background-color: #282c34;
+  color: #09d3ac;
+  border-color: #09d3ac;
+}
+
+.button.btn-primary:focus {
+  background-color: #282c34;
+  color: #09d3ac;
+  border-color: #09d3ac;
+  box-shadow: 0 0 0 .2rem rgba(9, 211, 172, .25); 
+}
+
+.button.btn-primary:hover {
+  background-color: #09d3ac;
+  color: #282c34;
+  border-color: #282c34;
+}
+
+.flex-end {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 20px;
+}
+
+.flex-start {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.App-input.form-control {
+  display: flex;
+  justify-content: center;
+  max-width: 200px;
+  background-color: #282c34;
+  border-color: #09d3ac;
+  color: #09d3ac;
+}
+
+.App-input.form-control:focus {
+  display: flex;
+  justify-content: center;
+  max-width: 200px;
+  background-color: #09d3ac;
+  border-color: #282c34;
+  color: #282c34;
+  box-shadow: 0 0 0 .2rem rgba(9, 211, 172, .25); 
+}
+
+.App-input-label.input-group-text {
+  background-color: #282c34;
+  border-color: #09d3ac;
+  color: #09d3ac;
+  width: 180px;
+}
